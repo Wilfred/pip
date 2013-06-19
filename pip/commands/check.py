@@ -51,6 +51,8 @@ class CheckCommand(Command):
     def run(self, options, args):
         f = sys.stdout
 
+        all_requirements_met = True
+
         installed = get_installed_distributions()
         for dist in installed:
 
@@ -64,3 +66,9 @@ class CheckCommand(Command):
                 f.write("%s %s has requirement %s, but you have %s %s.\n" % \
                     (dist.project_name, dist.version, requirement,
                      actual.project_name, actual.version))
+
+            if missing_requirements or incompatible_requirements:
+                all_requirements_met = False
+
+        if not all_requirements_met:
+            return 1
