@@ -47,8 +47,7 @@ class CheckCommand(Command):
         for requirement in dist.requires():
             if requirement.project_name not in installed_names:
                 missing_requirements.add(requirement)
-
-        return missing_requirements
+                yield requirement
 
     def get_incompatible_requirements(self, dist, installed_dists):
         """Return all of the requirements of `dist` that are present in
@@ -65,7 +64,4 @@ class CheckCommand(Command):
 
             if present_dist and present_dist not in requirement:
                 incompatible_requirements.add((requirement, present_dist))
-
-        return incompatible_requirements
-
-
+                yield (requirement, present_dist)
