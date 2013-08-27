@@ -1,4 +1,4 @@
-pip
+pip 
 ===
 
 .. image:: https://pypip.in/v/pip/badge.png
